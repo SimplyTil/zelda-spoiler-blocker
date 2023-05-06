@@ -21,7 +21,7 @@ To use the Spoiler Blocker Chrome Extension:
 1.  Navigate to a website where you want to block spoilers.
 2.  The extension will automatically replace any spoiler words with a censored message and hide the section where the spoiler appears.
 
-You can customize the spoiler words and censored message by modifying the `contentScript.js` file in the `src` folder.
+You can customize the spoiler words and censored message by modifying the `contentScript.js` file.
 
 ## License
 
