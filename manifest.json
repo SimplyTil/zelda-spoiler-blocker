@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Zelda Spoiler Blocker",
+    "author": "SimplyTil",
+    "description": "This Chrome extension automatically hides the words 'Zelda', 'TOTK', and 'Tears of the Kingdom' on websites. If a word is not hidden, it will be replaced with 'SPOILER'.",
+    "version": "0.0.1",
+    "icons": {
+        "128": "icon/icon.png"
+    },
+    "action": {
+        "default_title": "Zelda Spoiler Blocker",
+        "default_popup": "popup/popup.html"
+    },
+    "permissions": ["scripting"],
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }]
+}
