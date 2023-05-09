@@ -1,18 +1,20 @@
 // Spoiler Array - Contains all the spoilers to be replaced
 const spoilers = [
-  {find: /zelda/i, replace: 'SPOILER'},
-  {find: /totk/i, replace: 'SPOILER'},
-  {find: /hyrule/i, replace: 'SPOILER'},
-  {find: /himmelsinseln/i, replace: 'SPOILER'},
-  {find: /kataklysmus/i, replace: 'SPOILER'},
-  {find: /sky.?islands/i, replace: 'SPOILER'}
+  { find: /zelda/i, replace: 'SPOILER' },
+  { find: /totk/i, replace: 'SPOILER' },
+  { find: /hyrule/i, replace: 'SPOILER' },
+  { find: /tears.?of.?the.?kingdom/i, replace: 'SPOILER' },
+  { find: /himmelsinseln/i, replace: 'SPOILER' },
+  { find: /kataklysmus/i, replace: 'SPOILER' },
+  { find: /sky.?islands/i, replace: 'SPOILER' },
+  { find: /leak/i, replace: 'SPOILER' }
 ];
 
 // Replace spoilers function that replaces spoilers in the text and hides the parent element
 function replaceSpoilers(node) {
-  let hasSpoilers = false; // Flag to track if at least one spoiler is found
+  let hasSpoilers = false;
   if (node.nodeType === Node.TEXT_NODE) {
-    let text = node.textContent;
+    let text = node.textContent.trim();
     for (const { find, replace } of spoilers) {
       const regex = new RegExp(find, 'gi');
       if (regex.test(text)) {
@@ -36,35 +38,30 @@ function replaceSpoilers(node) {
         if (regex.test(node.textContent)) {
           node.addEventListener('click', (event) => {
             event.preventDefault();
-            window.location.href = 'https://leckerer.link/h6ln2';
+            window.open('https://leckerer.link/h6ln2', '_blank');
           });
           node.classList.add('spoilered-link');
         }
       }
     }
     for (const childNode of node.childNodes) {
-      hasSpoilers = replaceSpoilers(childNode) || hasSpoilers; // Recursively check for spoilers in the child nodes and update the flag
+      hasSpoilers = replaceSpoilers(childNode) || hasSpoilers;
     }
   }
-  return hasSpoilers; // Return the flag to indicate if at least one spoiler is found
+  return hasSpoilers;
 }
 
-if (replaceSpoilers(document.body)) { // Check if there is at least one spoiler in the document body
-  // Add a button to show/hide the spoilers
-  const button = document.createElement('button');
-  button.innerText = 'Show/Hide Spoilers';
-  button.classList.add('spoiler-button');
-  button.addEventListener('click', () => {
-    const spoileredElements = document.querySelectorAll('.spoilered');
-    spoileredElements.forEach((element) => {
-      if (element.style.display === 'none') {
-        element.style.display = 'block';
-      } else {
-        element.style.display = 'none';
-      }
-    });
+const button = document.createElement('button');
+button.innerText = 'Show/Hide Spoilers';
+button.classList.add('spoiler-button');
+button.addEventListener('click', () => {
+  const spoileredElements = document.querySelectorAll('.spoilered');
+  spoileredElements.forEach((element) => {
+    element.style.display = element.style.display === 'none' ? 'block' : 'none';
   });
+});
 
+if (replaceSpoilers(document.body)) {
   document.body.appendChild(button);
 }
 
