@@ -2,7 +2,10 @@
 const spoilers = [
   {find: /zelda/i, replace: 'SPOILER'},
   {find: /totk/i, replace: 'SPOILER'},
-  {find: /tears.?of.?the.?kingdom/i, replace: 'SPOILER'}
+  {find: /hyrule/i, replace: 'SPOILER'},
+  {find: /himmelsinseln/i, replace: 'SPOILER'},
+  {find: /kataklysmus/i, replace: 'SPOILER'},
+  {find: /sky.?islands/i, replace: 'SPOILER'}
 ];
 
 // Replace spoilers function that replaces spoilers in the text and hides the parent element

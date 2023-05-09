@@ -1,6 +1,6 @@
 # Zelda Spoiler Blocker
 
-This Chrome extension automatically replaces spoiler words with a censored message, and hides the section where the spoiler appears.
+This Chrome extension automatically replaces The Legend Of Zelda spoiler words with a censored message, and hides the section where the spoiler appears.
 
 ## Installation
 
