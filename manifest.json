@@ -3,7 +3,7 @@
     "name": "Zelda Spoiler Blocker",
     "author": "SimplyTil",
     "description": "This Chrome extension automatically hides spoilers related to 'Zelda', 'TOTK', and 'Tears of the Kingdom' on websites. If a word is not hidden, it will be replaced with 'SPOILER'.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "icons": {
         "128": "icon/icon.png"
     },

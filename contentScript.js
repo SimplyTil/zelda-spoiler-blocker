@@ -3,10 +3,10 @@ const spoilers = [
   { find: /zelda/i, replace: 'SPOILER' },
   { find: /totk/i, replace: 'SPOILER' },
   { find: /hyrule/i, replace: 'SPOILER' },
-  { find: /tears.?of.?the.?kingdom/i, replace: 'SPOILER' },
+  { find: /tears\s*of\s*the\s*kingdom/i, replace: 'SPOILER' },
   { find: /himmelsinseln/i, replace: 'SPOILER' },
   { find: /kataklysmus/i, replace: 'SPOILER' },
-  { find: /sky.?islands/i, replace: 'SPOILER' },
+  { find: /sky\s*islands/i, replace: 'SPOILER' },
   { find: /leak/i, replace: 'SPOILER' }
 ];
 
