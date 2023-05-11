@@ -27,6 +27,25 @@ function replaceSpoilers(node) {
         break;
       }
     }
+    // Check for hashtags containing one of the words
+    const hashtagRegex = /#\w+/gi;
+    const hashtags = text.match(hashtagRegex);
+    if (hashtags) {
+      for (const hashtag of hashtags) {
+        for (const { find } of spoilers) {
+          const regex = new RegExp(find, 'gi');
+          if (regex.test(hashtag)) {
+            const parentElement = node.parentElement;
+            if (parentElement) {
+              parentElement.style.display = 'none';
+              parentElement.classList.add('spoilered');
+            }
+            hasSpoilers = true;
+            break;
+          }
+        }
+      }
+    }
   } else if (
     node.nodeType === Node.ELEMENT_NODE &&
     node.nodeName !== 'SCRIPT' &&
@@ -35,10 +54,14 @@ function replaceSpoilers(node) {
     if (node.nodeName === 'A') {
       for (const { find } of spoilers) {
         const regex = new RegExp(find, 'i');
-        if (regex.test(node.textContent)) {
+        if (regex.test(node.textContent) && !node.hasAttribute('data-spoilered-link')) {
+          node.setAttribute('data-spoilered-link', true);
           node.addEventListener('click', (event) => {
             event.preventDefault();
-            window.open('https://leckerer.link/h6ln2', '_blank');
+            const confirmMessage = `The link you clicked contains a spoiler word. Do you want to continue to?`;
+            if (confirm(confirmMessage)) {
+              window.location.href = node.href;
+            }
           });
           node.classList.add('spoilered-link');
         }
